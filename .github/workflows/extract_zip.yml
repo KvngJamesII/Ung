@@ -1,0 +1,23 @@
+name: Extract ZIP
+on:
+  push:
+    paths:
+      - '*.zip'  # Runs when a ZIP file is pushed
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Extract ZIP
+        run: unzip your-file.zip -d extracted-files
+
+      - name: Commit Extracted Files
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add .
+          git commit -m "Extracted ZIP contents"
+          git push
